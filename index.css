@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#heading{
+    text-align: center;
+    margin: 2rem 0;
+    font-weight: bolder;
+}
+
+#image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 0 35rem; */
+}
+#image img{
+    width: 100%;
+    height: auto;
+    max-width: 30rem;
+}
+
+#setting{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem 0;
+    width: fit-content;
+    margin: 1rem 0;
+    margin: 1rem auto;
+    padding: 2rem;
+    /* display: inline-block; */
+    border-radius: 2rem;
+    border: 2px solid black;
+}
+
+#difficultyContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#difficultyContainer p{
+    font-size: 1.25rem;
+}
+
+/* #obstacleContainer{
+
+} */
+
+#btnContainer button{
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+    background-color: aqua;
+}
+
+#btnContainer button:hover{
+    background-color: green;
+}
+
+
+
