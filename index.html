@@ -4,34 +4,159 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-
-        body{
-            height: 100vh;
-            background-color: aqua;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        canvas{
-            /* border: 2px solid black; */
-            background-color: black;
-        }
-    </style>
+    <title>Snake Game</title>
 </head>
+<style>
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    #heading{
+        text-align: center;
+        margin: 2rem 0;
+        font-weight: bolder;
+    }
+
+    #image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* margin: 0 35rem; */
+    }
+    #image img{
+        width: 100%;
+        height: auto;
+        max-width: 30rem;
+    }
+    
+    #setting{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem 0;
+        width: fit-content;
+        margin: 1rem 0;
+        margin: 1rem auto;
+        padding: 2rem;
+        /* display: inline-block; */
+        border-radius: 2rem;
+        border: 2px solid black;
+    }
+
+    #difficultyContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    #difficultyContainer p{
+        font-size: 1.25rem;
+    }
+
+    #obstacleContainer{
+
+    }
+
+    #btnContainer button{
+        padding: 0.5rem 2rem;
+        border-radius: 1rem;
+        background-color: aqua;
+    }
+
+    #btnContainer button:hover{
+        background-color: green;
+    }
+
+
+
+
+</style>
 <body>
-    <canvas id="myCanvas" >
 
-    </canvas>
+    <h1 id="heading">Welcome to Snake Game</h1>
 
+    <div id="image">
+        <img src="./snake.png" alt="Snake image">
+    </div>
+
+    <div id="setting">
+
+        <div id="difficultyContainer">
+            <div>
+                <label for="difficulty">Difficulty:  </label>
+                <input type="range" id="difficulty" min="0" max="4">
+            </div>
+            <p>Extreme</p>
+        </div>
+
+        <div id="obstacleContainer">
+            <input type="checkbox" value="" id="obstacle">
+            <label for="obstacle">
+              Include Obstacles
+            </label>
+        </div>
+
+        <div id="btnContainer">
+            <button type="button">Play</button>
+        </div>
+
+    </div>
 </body>
-    <script src="./Snake.js"></script>
-    <script src="./Vector.js"></script>
-    <script src="./index.js"></script>
+
+<script>
+
+    let difficulty = document.getElementById("difficulty");
+    let difficultyShow = document.querySelector("#difficultyContainer > p");
+    let obstacle = document.getElementById("obstacle");
+    let playBtn = document.querySelector("#btnContainer button");
+
+   
+
+    difficulty.addEventListener("input",(e)=>{
+        setMssg();
+        
+    })
+
+
+
+    difficulty.addEventListener("change",(e)=>{
+        setMssg();
+        
+    })
+
+    setMssg();
+    
+    function setMssg(){
+        if(difficulty.value == 0){
+            difficultyShow.style.color = "green";
+            difficultyShow.innerHTML = "Easy";
+        }else if(difficulty.value == 1){
+            difficultyShow.style.color = "yellow";
+            difficultyShow.innerHTML = "Medium";
+        }else if(difficulty.value == 2){
+            difficultyShow.style.color = "orange";
+            difficultyShow.innerHTML = "Hard";
+        }else if(difficulty.value == 3){
+            difficultyShow.style.color = "red";
+            difficultyShow.innerHTML = "Very Hard";
+        }else if(difficulty.value == 4){
+            difficultyShow.style.color = "purple";
+            difficultyShow.innerHTML = "Impossible";
+        }
+    }
+
+
+    playBtn.addEventListener("click",(e)=>{
+        window.location = `./snake.html?level=${difficulty.value}&obstacle=${obstacle.checked}`;
+        
+    })
+
+
+</script>
+
 </html>
