@@ -30,6 +30,7 @@ class Snake{
         if(this.tail[0].x == this.food.x && this.tail[0].y == this.food.y){
             this.grow();
             this.food = this.generateFood();
+            return true;
         }
     }
 
@@ -60,15 +61,16 @@ class Snake{
         ){
             this.xSpeed = 0;
             this.ySpeed = 0;
-            alert("You dead");
             this.reset();
+            return true;
         }
 
         if(this.suicide()){
-            alert("You dead");
             this.reset();
+            return true;
         }
-
+        
+        return false;
     }
 
     

@@ -22,10 +22,88 @@
         canvas{
             /* border: 2px solid black; */
             background-color: black;
+            /* height: 100%; */
+            /* width: 100%; */
+            /* margin: 1rem 1rem; */
         }
+
+        .active{
+            /* display: none; */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 5em;
+        }
+
+        .inactive{
+            display: none;
+        }
+
+        .active::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #8bc34a;
+            opacity: 50%;
+            z-index: 5;
+
+        }
+
+        #scoreCard{
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            right: 0;
+            margin: 2rem;
+            color: white;
+            font-size: 2rem;
+            padding: 2rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0px 0px 2rem black;
+
+            
+        }
+
+        #scoreCard::after{
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: aqua;
+            
+            opacity: 50%;
+            z-index: -5;
+
+        }
+
     </style>
 </head>
 <body>
+
+    <div id="modal" class="inactive">
+        <p>Use W, A, S, D or 8, 4, 5, 6</p>
+        <p>or Arrows keys to play</p>
+        <p>Press any above mention key to continue</p>
+        <p> (Press space to pause) </p>
+    </div>
+
+    <div id="scoreCard">
+        <p>Score: <span id="score"></span></p>
+        <p>Diffculty: <span id="scoreDifficulty"></span></p>
+    </div>
+
+
     <canvas id="myCanvas" >
 
     </canvas>

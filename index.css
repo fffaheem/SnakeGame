@@ -48,9 +48,9 @@
     font-size: 1.25rem;
 }
 
-/* #obstacleContainer{
-
-} */
+#obstacleContainer{
+    user-select: none;
+}
 
 #btnContainer button{
     padding: 0.5rem 2rem;
