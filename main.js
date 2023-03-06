@@ -12,7 +12,7 @@ let levelString = "";
 
 score.innerHTML = 0;
 
-if(!(level >= 0 && level < 5)){
+if(!(level >= 0 && level < 5) || level == "" || level == null){
     window.location = "./index.html";
 }
 
