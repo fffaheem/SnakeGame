@@ -7,10 +7,12 @@ let modal = document.getElementById("modal");
 let scoreCard = document.getElementById("score");
 let scoreDifficulty = document.getElementById("scoreDifficulty");
 let intScore = 0;
+let bestScore = document.getElementById("bestScore");
+let levelString = "";
 
 score.innerHTML = 0;
 
-if(level == null || level < 0 || level > 4 || level == ""){
+if(!(level >= 0 && level < 5)){
     window.location = "./index.html";
 }
 
@@ -18,21 +20,31 @@ let FPS = 10;
 
 if(level == 0){
     FPS = 10;
-    scoreDifficulty.innerHTML = "Easy";
+    levelString = "Easy";
 }else if(level == 1){
     FPS = 15;
-    scoreDifficulty.innerHTML = "Medium";
+    levelString = "Medium";
 }else if(level == 2){
     FPS = 20;
-    scoreDifficulty.innerHTML = "Hard";
+    levelString = "Hard";
 }else if(level == 3){
     FPS = 25;
-    scoreDifficulty.innerHTML = "Very Hard";
+    levelString = "Very Hard";
 }else if(level == 4){
     FPS = 40;
-    scoreDifficulty.innerHTML = "Impossible";
+    levelString = "Impossible";
 }
 
+scoreDifficulty.innerHTML = levelString;
+
+let localStorageBest = localStorage.getItem(`bestScore${levelString}`);
+if(localStorageBest==null){
+    localStorageBest.setItem(`bestScore${levelString}`,0);
+    bestScore.innerHTML = 0;
+}else{
+    bestScore.innerHTML = localStorageBest;
+
+}
 
 
 
@@ -47,7 +59,7 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
 const ctx = canvas.getContext("2d");
-const snakeHeadSize = Math.floor((WIDTH+HEIGHT)/35);
+const snakeHeadSize = Math.floor((WIDTH+HEIGHT)/80);
 
 
 
@@ -75,12 +87,22 @@ function gameLoop() {
                 
                 intScore += 10;
                 scoreCard.innerHTML = intScore;
+                if(intScore > localStorageBest){
+                    localStorageBest = intScore;
+                    localStorage.setItem(`bestScore${levelString}`,intScore);
+                }
+                bestScore.innerHTML = localStorageBest;
             }
             
             let isDead = snake.death();
             if(isDead){
                 intScore = 0;
                 scoreCard.innerHTML = intScore;
+                modal.classList.add("active");
+                modal.classList.remove("inactive");
+                document.querySelector(".active").style.setProperty("--bgColor", "#ff0707");
+                modal.innerHTML = "You died";
+                gameBegin = false;
             }
             snake.update();
         }
@@ -97,37 +119,51 @@ requestAnimationFrame(gameLoop);
 
 document.addEventListener("keydown",(e)=>{
     // console.log(e);
+    let startKey = false;
     if(e.key == "ArrowUp" || e.key.toLowerCase() == "w" || e.key == "8"){
         if(!snake.checkInvalidMove(0,-1)){
             snake.xSpeed = 0;
             snake.ySpeed = -1;
         }
+        startKey = true;
     }else if(e.key == "ArrowDown" || e.key.toLowerCase() == "s" || e.key == "5"){
         if(!snake.checkInvalidMove(0,1)){
             snake.xSpeed = 0;
             snake.ySpeed = 1;
         }
+        startKey = true;
     }else if(e.key == "ArrowLeft" || e.key.toLowerCase() == "a" || e.key == "4"){
         if(!snake.checkInvalidMove(-1,0)){
             snake.xSpeed = -1;
             snake.ySpeed = 0;
         }
+        startKey = true;
     }else if(e.key == "ArrowRight" || e.key.toLowerCase() == "d" || e.key == "6"){
         if(!snake.checkInvalidMove(1,0)){
             snake.xSpeed = 1;
             snake.ySpeed = 0;
         }
-    }else if(e.key == " "){
+        startKey = true;
+    }else if(e.key == " " && gameBegin == true){
             if(gamePause){
-                // modal.classList.remove("active");
-                // modal.classList.add("inactive");
+                modal.classList.remove("active");
+                modal.classList.add("inactive");
                 gamePause = false;
             }else{
-                // modal.classList.add("active");
-                // modal.classList.remove("inactive");
-                // modal.innerHTML = "Press Space to continue";
+                modal.classList.add("active");
+                modal.classList.remove("inactive");
+                modal.innerHTML = "Press Space to continue";
                 gamePause = true;
             }
+    }
+
+    if(!gameBegin){
+        if(startKey){
+            document.querySelector(".active").style.setProperty("--bgColor", "#8bc34a");
+            modal.classList.remove("active");
+            modal.classList.add("inactive");
+            gameBegin = true;
+        }
     }
     
     // else{

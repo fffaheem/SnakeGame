@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Snake Game</title>
     <style>
         *{
             margin: 0;
@@ -51,7 +51,7 @@
             height: 100%;
             top: 0;
             left: 0;
-            background-color: #8bc34a;
+            background-color: var(--bgColor,#8bc34a);
             opacity: 50%;
             z-index: 5;
 
@@ -91,16 +91,16 @@
 </head>
 <body>
 
-    <div id="modal" class="inactive">
+    <div id="modal" class="active">
         <p>Use W, A, S, D or 8, 4, 5, 6</p>
         <p>or Arrows keys to play</p>
-        <p>Press any above mention key to continue</p>
         <p> (Press space to pause) </p>
     </div>
 
     <div id="scoreCard">
         <p>Score: <span id="score"></span></p>
         <p>Diffculty: <span id="scoreDifficulty"></span></p>
+        <p>Best Score: <span id="bestScore"></span></p>
     </div>
 
 
