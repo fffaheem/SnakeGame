@@ -51,8 +51,10 @@ if(localStorageBest==null){
 
 
 const canvas = document.getElementById("myCanvas");
-const HEIGHT = document.querySelector("body").scrollHeight * 0.8;
-const WIDTH = Math.floor(document.querySelector("body").scrollWidth);
+const HEIGHT = document.querySelector("body").clientHeight * 0.8;
+const WIDTH = document.querySelector("body").clientWidth;
+console.log(WIDTH);
+
 // const HEIGHT = canvas.height;
 // const WIDTH = canvas.width;
 canvas.width = WIDTH;
