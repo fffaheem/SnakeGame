@@ -39,7 +39,7 @@ scoreDifficulty.innerHTML = levelString;
 
 let localStorageBest = localStorage.getItem(`bestScore${levelString}`);
 if(localStorageBest==null){
-    localStorageBest.setItem(`bestScore${levelString}`,0);
+    localStorage.setItem(`bestScore${levelString}`,0);
     bestScore.innerHTML = 0;
 }else{
     bestScore.innerHTML = localStorageBest;
