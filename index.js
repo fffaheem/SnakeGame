@@ -4,17 +4,19 @@ let obstacle = document.getElementById("obstacle");
 let playBtn = document.querySelector("#btnContainer button");
 
 
+window.onload = ()=>{
+    difficulty.value = 0; 
+    setMssg();
+}
 
 difficulty.addEventListener("input", (e) => {
     setMssg();
-
 })
 
 
 
 difficulty.addEventListener("change", (e) => {
     setMssg();
-
 })
 
 setMssg();
@@ -31,7 +33,7 @@ function setMssg() {
         difficultyShow.innerHTML = "Hard";
     } else if (difficulty.value == 3) {
         difficultyShow.style.color = "red";
-        difficultyShow.innerHTML = "Very Hard";
+        difficultyShow.innerHTML = "Extreme";
     } else if (difficulty.value == 4) {
         difficultyShow.style.color = "purple";
         difficultyShow.innerHTML = "Impossible";

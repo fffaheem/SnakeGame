@@ -82,7 +82,7 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
 const ctx = canvas.getContext("2d");
-const snakeHeadSize = Math.floor((WIDTH+HEIGHT)/80);
+const snakeHeadSize = Math.floor((WIDTH+HEIGHT)*0.015);
 
 
 
@@ -151,6 +151,115 @@ function gameLoop() {
 }
 
 requestAnimationFrame(gameLoop);
+
+//controls
+let up = document.getElementById("up");
+let down = document.getElementById("down");
+let left = document.getElementById("left");
+let right = document.getElementById("right");
+let pause = document.getElementById("pause");
+
+let startKey = false;
+
+up.addEventListener("click",(e)=>{
+    up.classList.toggle("clicked");
+
+    if(!snake.checkInvalidMove(0,-1)){
+        snake.xSpeed = 0;
+        snake.ySpeed = -1;
+    }
+    startKey = true;
+    
+    if(!gameBegin){
+        if(startKey){
+            document.querySelector(".active").style.setProperty("--bgColor", "#8bc34a");
+            modal.classList.remove("active");
+            modal.classList.add("inactive");
+            gameBegin = true;
+        }
+    }
+})
+
+down.addEventListener("click",(e)=>{
+    down.classList.toggle("clicked");
+
+
+    if(!snake.checkInvalidMove(0,1)){
+        snake.xSpeed = 0;
+        snake.ySpeed = 1;
+    }
+    startKey = true;
+    
+    if(!gameBegin){
+        if(startKey){
+            document.querySelector(".active").style.setProperty("--bgColor", "#8bc34a");
+            modal.classList.remove("active");
+            modal.classList.add("inactive");
+            gameBegin = true;
+        }
+    }
+})
+
+left.addEventListener("click",(e)=>{
+    left.classList.toggle("clicked");
+
+    if(!snake.checkInvalidMove(-1,0)){
+        snake.xSpeed = -1;
+        snake.ySpeed = 0;
+    }
+    startKey = true;
+    
+    if(!gameBegin){
+        if(startKey){
+            document.querySelector(".active").style.setProperty("--bgColor", "#8bc34a");
+            modal.classList.remove("active");
+            modal.classList.add("inactive");
+            gameBegin = true;
+        }
+    }
+})
+
+right.addEventListener("click",(e)=>{
+    right.classList.toggle("clicked");
+
+    if(!snake.checkInvalidMove(1,0)){
+        snake.xSpeed = 1;
+        snake.ySpeed = 0;
+    }
+    startKey = true;
+    
+    if(!gameBegin){
+        if(startKey){
+            document.querySelector(".active").style.setProperty("--bgColor", "#8bc34a");
+            modal.classList.remove("active");
+            modal.classList.add("inactive");
+            gameBegin = true;
+        }
+    }
+})
+
+
+
+
+pause.addEventListener("click",(e)=>{
+    pause.classList.toggle("click");
+
+    if(!gameBegin){
+        return;
+    }
+    if(gamePause){
+        modal.classList.remove("active");
+        modal.classList.add("inactive");
+        gamePause = false;
+    }else{
+        modal.classList.add("active");
+        modal.classList.remove("inactive");
+        modal.innerHTML = "Press Space to continue";
+        gamePause = true;
+    }
+})
+
+
 
 document.addEventListener("keydown",(e)=>{
     // console.log(e);
