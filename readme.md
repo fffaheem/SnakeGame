@@ -21,12 +21,12 @@ Here are some screenshots of the game running on both PC and mobile.
 
 ### PC
 ![Welcome Page](./Screenshot/1.png)
-![Game page](./Screenshot/2.png)
+![Game page](./Screenshot/2.png)\
 *This is how the game looks on a PC browser.
 
 ### Mobile
 ![Welcome Page](./Screenshot/3.jpg)
-![Game page](./Screenshot/4.jpg)
+![Game page](./Screenshot/4.jpg)\
 *This is how the game looks on a mobile browser. Control button are provided to play the game.
 
 ## How to run
@@ -38,5 +38,7 @@ Alternatively, you can also visit [here](https://fffaheem.github.io/SnakeGame/).
 
 ## Credits
 
-This game is inspired by the classic snake game from the late 70s.
-I hope you enjoy playing this game as much as I enjoyed making it. Feel free to fork, clone, or modify this project as you wish. If you have any feedback or suggestions, please let me know. Thank you!
+This game is inspired by the classic snake game from the late 70s.\
+I hope you enjoy playing this game as much as I enjoyed making it. \
+Feel free to fork, clone, or modify this project as you wish. \
+If you have any feedback or suggestions, please let me know. Thank you!
