@@ -26,7 +26,7 @@ Here are some screenshots of the game running on both PC and mobile.
 
 ### Mobile
 ![Welcome Page](./Screenshot/3.jpg)
-![Game page](./Screenshot/4.png)
+![Game page](./Screenshot/4.jpg)
 *This is how the game looks on a mobile browser. Control button are provided to play the game.
 
 ## How to run
