@@ -6,9 +6,12 @@ const obstacle = urlParams.get('obstacle');
 let modal = document.getElementById("modal");
 let scoreCard = document.getElementById("score");
 let scoreDifficulty = document.getElementById("scoreDifficulty");
+let scoreObstacle = document.getElementById("scoreObstacle");
 let intScore = 0;
 let bestScore = document.getElementById("bestScore");
 let levelString = "";
+let boolObstacle = "";
+let obstacleAmount = 0;
 
 score.innerHTML = 0;
 
@@ -16,30 +19,49 @@ if(!(level >= 0 && level < 5) || level == "" || level == null){
     window.location = "./index.html";
 }
 
+if(!(obstacle == "false" || obstacle == "true")){
+    window.location = "./index.html";
+}
+
+
 let FPS = 10;
 
 if(level == 0){
     FPS = 10;
     levelString = "Easy";
+    obstacleAmount = 1;
 }else if(level == 1){
     FPS = 15;
     levelString = "Medium";
+    obstacleAmount = 2;
 }else if(level == 2){
     FPS = 20;
     levelString = "Hard";
+    obstacleAmount = 3;
 }else if(level == 3){
     FPS = 25;
     levelString = "Very Hard";
+    obstacleAmount = 4;
 }else if(level == 4){
     FPS = 40;
     levelString = "Impossible";
+    obstacleAmount = 5;
 }
+
+boolObstacle = "Yes";
+if(obstacle == "false"){
+    boolObstacle = "No";
+    obstacleAmount = 0;
+}
+
+scoreObstacle.innerHTML = boolObstacle;
+
 
 scoreDifficulty.innerHTML = levelString;
 
-let localStorageBest = localStorage.getItem(`bestScore${levelString}`);
+let localStorageBest = localStorage.getItem(`bestScore${levelString}${boolObstacle}`);
 if(localStorageBest==null){
-    localStorage.setItem(`bestScore${levelString}`,0);
+    localStorage.setItem(`bestScore${levelString}${boolObstacle}`,0);
     bestScore.innerHTML = 0;
 }else{
     bestScore.innerHTML = localStorageBest;
@@ -51,9 +73,8 @@ if(localStorageBest==null){
 
 
 const canvas = document.getElementById("myCanvas");
-const HEIGHT = document.querySelector("body").clientHeight * 0.8;
+const HEIGHT = document.querySelector("body").clientHeight;
 const WIDTH = document.querySelector("body").clientWidth;
-console.log(WIDTH);
 
 // const HEIGHT = canvas.height;
 // const WIDTH = canvas.width;
@@ -71,7 +92,7 @@ let then = Date.now();
 let gamePause = false;
 let gameBegin = false;
 
-snake = new Snake(WIDTH,HEIGHT,snakeHeadSize);
+snake = new Snake(WIDTH,HEIGHT,snakeHeadSize,obstacleAmount);
 
 function gameLoop() {
 
@@ -91,7 +112,7 @@ function gameLoop() {
                 scoreCard.innerHTML = intScore;
                 if(intScore > localStorageBest){
                     localStorageBest = intScore;
-                    localStorage.setItem(`bestScore${levelString}`,intScore);
+                    localStorage.setItem(`bestScore${levelString}${boolObstacle}`,intScore);
                 }
                 bestScore.innerHTML = localStorageBest;
             }
@@ -107,6 +128,18 @@ function gameLoop() {
                 gameBegin = false;
             }
             snake.update();
+
+
+            let isWin = snake.win();
+            if(isWin){
+                modal.classList.add("active");
+                modal.classList.remove("inactive");
+                document.querySelector(".active").style.setProperty("--bgColor", "#8bc34a");
+                modal.innerHTML = "Hurray, you won";
+                gameBegin = false;
+                intScore = 0;
+                scoreCard.innerHTML = intScore;
+            }
         }
 
 

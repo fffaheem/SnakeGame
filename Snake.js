@@ -1,6 +1,6 @@
 class Snake{
 
-    constructor(width,height,headSize){
+    constructor(width,height,headSize,obstacleAmount){
         this.width = width;
         this.height = height;
         this.xSpeed = 0;
@@ -8,15 +8,22 @@ class Snake{
         this.headSize = headSize;
         this.tail = [];
         this.tail[0] = new Vector(0,0);
-        this.food = this.generateFood();
+        this.obstacleAmount = obstacleAmount;
+
+        this.columns = Math.floor(this.height/(this.headSize));
+        this.rows = Math.floor(this.width/(this.headSize));
+
+        this.food = this.generateFood();    
+        this.obstacle = [];
+        for(let i = 0; i < this.obstacleAmount; i++){
+            this.obstacle.push(this.generateObstacle());
+        }
+
     }
 
-    generateFood(){
-        let columns = Math.floor(this.height/(this.headSize));
-        let rows = Math.floor(this.width/(this.headSize));
-        
-        let foodX = this.headSize * Math.floor(Math.random() * (rows-1)) ;
-        let foodY = this.headSize * Math.floor(Math.random() * (columns-1));
+    generateFood(){     
+        let foodX = this.headSize * Math.floor(Math.random() * (this.rows-1)) ;
+        let foodY = this.headSize * Math.floor(Math.random() * (this.columns-1));
         for(let i = 0 ; i < this.tail.length; i++){
             if(foodX == this.tail[i].x && foodY == this.tail[i].y){
                 // console.log(`invalid food`);
@@ -26,12 +33,49 @@ class Snake{
         return new Vector(foodX,foodY);
     }
 
+    generateObstacle(){   
+        let obstacleX = this.headSize * Math.floor(Math.random() * (this.rows-1)) ;
+        let obstacleY = this.headSize * Math.floor(Math.random() * (this.columns-1));
+        for(let i = 0 ; i < this.tail.length; i++){
+            if(obstacleX == this.tail[i].x && obstacleY == this.tail[i].y){
+                // console.log(`invalid food`);
+                return this.generateObstacle();
+            }
+        }
+
+        if(obstacleX == this.foodX && obstacleY == this.foodY){
+            return this.generateObstacle();
+        }
+
+        for(let i = 0; i < this.obstacle.length; i++){
+            if(obstacleX == this.obstacle.x && obstacleY == this.obstacleY){
+                return this.generateObstacle();
+            }
+        }
+
+        return new Vector(obstacleX,obstacleY);
+    }
+
     eat(){
         if(this.tail[0].x == this.food.x && this.tail[0].y == this.food.y){
             this.grow();
             this.food = this.generateFood();
+            this.obstacle = [];
+            for(let i = 0; i < this.obstacleAmount; i++){
+                this.obstacle.push(this.generateObstacle());
+            }
             return true;
         }
+    }
+
+    win(){
+        if(this.tail.length == this.rows+this.columns-this.obstacle){
+            this.xSpeed = 0;
+            this.ySpeed = 0;
+            this.reset();
+            return true;
+        }
+        return false;
     }
 
 
@@ -69,12 +113,25 @@ class Snake{
             this.reset();
             return true;
         }
+
+        if(this.accident()){
+            this.reset();
+            return true;
+        }
         
         return false;
     }
 
     
+    accident(){
+        for(let i = 0; i < this.obstacleAmount; i++){
+            if(this.tail[0].x == this.obstacle[i].x && this.tail[0].y == this.obstacle[i].y){
+                return true;
+            }
+        }
 
+        return false;
+    }
 
     suicide(){
 
@@ -101,6 +158,8 @@ class Snake{
     }
 
     reset(){
+        this.xSpeed = 0;
+        this.ySpeed = 0;
         this.tail = [];
         this.tail[0] = new Vector(0,0);
     }
@@ -121,11 +180,19 @@ class Snake{
             ctx.fillRect(this.tail[i].x,this.tail[i].y,this.headSize,this.headSize);
         }
         this.showFood();
+        this.showObstacle();
     }
 
     showFood(){
         ctx.fillStyle = "#00FF00";
         ctx.fillRect(this.food.x,this.food.y,this.headSize,this.headSize);
+    }
+
+    showObstacle(){
+        for(let i = 0; i < this.obstacleAmount; i++){
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(this.obstacle[i].x,this.obstacle[i].y,this.headSize,this.headSize);
+        }
     }
     
 
