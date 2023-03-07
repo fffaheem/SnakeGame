@@ -73,7 +73,7 @@ if(localStorageBest==null){
 
 
 const canvas = document.getElementById("myCanvas");
-const HEIGHT = document.querySelector("body").clientHeight;
+const HEIGHT = document.querySelector("body").scrollHeight;
 const WIDTH = document.querySelector("body").clientWidth;
 
 // const HEIGHT = canvas.height;
@@ -162,7 +162,11 @@ let pause = document.getElementById("pause");
 let startKey = false;
 
 up.addEventListener("click",(e)=>{
-    up.classList.toggle("clicked");
+    up.classList.add("clicked")
+    
+    setTimeout(() => {
+        up.classList.remove("clicked")
+    }, 1000);
 
     if(!snake.checkInvalidMove(0,-1)){
         snake.xSpeed = 0;
@@ -181,8 +185,11 @@ up.addEventListener("click",(e)=>{
 })
 
 down.addEventListener("click",(e)=>{
-    down.classList.toggle("clicked");
+    down.classList.add("clicked");
 
+    setTimeout(() => {
+        down.classList.remove("clicked");
+    }, 50);
 
     if(!snake.checkInvalidMove(0,1)){
         snake.xSpeed = 0;
@@ -201,7 +208,11 @@ down.addEventListener("click",(e)=>{
 })
 
 left.addEventListener("click",(e)=>{
-    left.classList.toggle("clicked");
+    left.classList.add("clicked");
+
+    setTimeout(() => {
+        left.classList.remove("clicked");
+    }, 50);
 
     if(!snake.checkInvalidMove(-1,0)){
         snake.xSpeed = -1;
@@ -220,7 +231,11 @@ left.addEventListener("click",(e)=>{
 })
 
 right.addEventListener("click",(e)=>{
-    right.classList.toggle("clicked");
+    right.classList.add("clicked");
+
+    setTimeout(() => {
+        right.classList.remove("clicked");
+    }, 50);
 
     if(!snake.checkInvalidMove(1,0)){
         snake.xSpeed = 1;
@@ -242,7 +257,7 @@ right.addEventListener("click",(e)=>{
 
 
 pause.addEventListener("click",(e)=>{
-    pause.classList.toggle("click");
+    pause.classList.toggle("clicked");
 
     if(!gameBegin){
         return;
