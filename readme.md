@@ -19,12 +19,14 @@ The game gets more challenging based on the difficulty level.
 
 Here are some screenshots of the game running on both PC and mobile.
 
-![Screenshot of the game on PC](./Screenshot/1.png)
-(./Screenshot/2.png)
+### PC
+![Welcome Page](./Screenshot/1.png)
+![Game page](./Screenshot/2.png)
 *This is how the game looks on a PC browser.
 
-![Screenshot of the game on mobile](./Screenshot/3.jpg)
-(./Screenshot/4.png)
+### Mobile
+![Welcome Page](./Screenshot/3.jpg)
+![Game page](./Screenshot/4.png)
 *This is how the game looks on a mobile browser. Control button are provided to play the game.
 
 ## How to run
